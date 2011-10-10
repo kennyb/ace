@@ -6,9 +6,11 @@ build:
 	
 	cp demo/styles.css build/demo/styles.css
 	cp demo/logo.png build/demo/logo.png
+	(cd support/dryice && npm install)
 	
 	./Makefile.dryice.js normal
 	./Makefile.dryice.js bm
+	./Makefile.dryice.js coco
 
 clean:
 	rm -rf build
