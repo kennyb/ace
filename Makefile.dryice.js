@@ -45,7 +45,7 @@ var targetDir = null;
 if (args.length == 3) {
     target = args[2];
     // Check if 'target' contains some allowed value.
-    if (target != "normal" && target != "bm") {
+    if (target != "normal" && target != "bm" && target != "coco") {
         target = null;
     }
 }
@@ -64,6 +64,7 @@ if (!target) {
     console.log("Options:");
     console.log("  normal      Runs embedded build of Ace");
     console.log("  bm          Runs bookmarklet build of Ace");
+    console.log("  coco        Runs coco-enabled build of Ace");
     process.exit(0);
 } else {
     if (target == "normal") {
@@ -93,6 +94,15 @@ var aceProject = [
     aceHome + '/lib',
     aceHome
 ];
+
+if(target == "coco") {
+    target = "normal";
+    targetDir = "build";
+    copy({
+        source: "build_support/editor_coco.html",
+        dest:   targetDir + '/editor_coco.html'
+    });
+}
 
 if (target == "normal") {
     aceProject.push(aceHome + '/demo');
@@ -212,7 +222,7 @@ console.log('# ace modes ---------');
 project.assumeAllFilesLoaded();
 [
     "css", "html", "javascript", "php", "python", "lua", "xml", "ruby", "java", "c_cpp",
-    "coffee", "perl", "csharp", "svg", "clojure", "scss", "json", "groovy",
+    "coffee", "coco", "perl", "csharp", "svg", "clojure", "scss", "json", "groovy",
     "ocaml", "scala", "textile", "scad", "markdown", "latex", "powershell"
 ].forEach(function(mode) {
     console.log("mode " + mode);
